@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Data Analyst Portfolio - AI Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .top-feature-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        gap: 1rem !important;
+        margin-bottom: 2.5rem !important;
+      }
+
+      .top-feature-grid > .top-feature-item {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+        min-width: 0 !important;
+      }
+
+      @media (max-width: 600px) {
+        .top-feature-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-content">
+        <h1>Hi, I'm Aishik Dalui Data&nbsp;Analyst</h1>
+        <p>
+          I turn data into insights, dashboards, and clear business decisions.
+        </p>
+        <button id="chat-cta" class="btn-primary">Chat with me</button>
+        <a href="admin.html" class="btn-primary admin-cta">Admin Login</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="top-feature-grid">
+        <section class="section booking-cta-section top-feature-item" id="book-session-spotlight">
+          <h2>Let's Book A Session</h2>
+          <p>Plan a quick Google Meet call with me after email verification.</p>
+          <button id="book-session-cta" class="btn-primary btn-book-spotlight">Book Session</button>
+        </section>
+
+        <section class="section top-feature-item" id="featured-video">
+          <h2>Website Demo Video</h2>
+          <div class="video-frame-wrap">
+            <iframe
+              class="video-frame"
+              id="demo-video-frame"
+              src="https://www.youtube.com/embed/oJ-AQLMooXU"
+              title="Website demo video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
+      </div>
+
+      <section class="section" id="about">
+        <h2>About Me</h2>
+        <p id="about-text">
+          I specialize in data analysis, dashboarding, and storytelling with data.
+          This portfolio is powered by an AI chat assistant that can answer questions
+          based on my resume and portfolio PDF.
+        </p>
+      </section>
+
+      <section class="section" id="skills">
+        <h2>Skills</h2>
+        <ul class="pill-list" id="skills-list">
+          <li>SQL</li>
+          <li>Python (Pandas, NumPy)</li>
+          <li>Power BI / Tableau</li>
+          <li>Excel</li>
+          <li>Statistics</li>
+          <li>A/B Testing</li>
+        </ul>
+      </section>
+
+      <section class="section" id="projects">
+        <h2>Projects</h2>
+        <div class="card-grid" id="projects-grid">
+          <article class="card">
+            <h3>Sales Performance Dashboard</h3>
+            <p>
+              Built an interactive dashboard to track regional sales performance,
+              using SQL + Power BI, improving reporting speed by 40%.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Customer Churn Analysis</h3>
+            <p>
+              Performed churn modeling using Python and logistic regression,
+              identifying key drivers of customer retention.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <h2 id="contact-heading">Contact</h2>
+        <p id="contact-text">
+          Want to know more about my work or experience?
+          Use the <strong>Chat with me</strong> button at the top to start a conversation.
+        </p>
+        <div class="contact-actions" id="contact-actions">
+          <a
+            class="contact-action contact-action-linkedin"
+            id="contact-linkedin"
+            href="https://www.linkedin.com/in/aishik-dalui-309222236/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+          >
+            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M6.94 8.5H3.56V20h3.38zM5.25 3A2.02 2.02 0 1 0 5.3 7.04 2.02 2.02 0 0 0 5.25 3m15.19 8.39c0-3.36-1.79-4.92-4.18-4.92a3.63 3.63 0 0 0-3.28 1.8V8.5H9.6c.04.84 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.67.12-.91a2.2 2.2 0 0 1 2.06-1.47c1.46 0 2.05 1.11 2.05 2.74V20h3.38z"
+              />
+            </svg>
+            <span class="sr-only">LinkedIn</span>
+          </a>
+          <a
+            class="contact-action contact-action-github"
+            id="contact-github"
+            href="https://github.com/AishikDalui"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle class="github-icon-disc" cx="12" cy="12" r="9.2" />
+              <path
+                class="github-icon-mark"
+                d="M12 2C6.48 2 2 6.6 2 12.26c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.13.63-1.39-2.22-.26-4.55-1.15-4.55-5.12 0-1.13.39-2.05 1.03-2.78-.1-.26-.45-1.32.1-2.76 0 0 .84-.28 2.75 1.06A9.3 9.3 0 0 1 12 6.86c.85 0 1.71.12 2.51.36 1.91-1.34 2.75-1.06 2.75-1.06.55 1.44.2 2.5.1 2.76.64.73 1.03 1.65 1.03 2.78 0 3.98-2.34 4.85-4.57 5.11.36.32.68.95.68 1.92 0 1.39-.01 2.5-.01 2.84 0 .27.18.6.69.49A10.27 10.27 0 0 0 22 12.26C22 6.6 17.52 2 12 2"
+              />
+            </svg>
+            <span class="sr-only">GitHub</span>
+          </a>
+          <a
+            class="contact-action contact-action-medium"
+            id="contact-medium"
+            href="https://medium.com/@aishikdalui"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Medium"
+            title="Medium"
+          >
+            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="#ffffff"
+                d="M4.5 7.5A4.5 4.5 0 1 0 9 12a4.5 4.5 0 0 0-4.5-4.5m8.25.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5m6 .75a2.99 2.99 0 1 0 0 6 2.99 2.99 0 0 0 0-6"
+              />
+            </svg>
+            <span class="sr-only">Medium</span>
+          </a>
+          <a
+            class="contact-action contact-action-email"
+            id="contact-email"
+            href="mailto:aishikdalui@gmail.com"
+            aria-label="Email"
+            title="Email"
+          >
+            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25zm2.2-.25L12 11.44l6.8-4.94zM19 8.3l-6.41 4.65a1 1 0 0 1-1.18 0L5 8.3v8.95c0 .41.34.75.75.75h12.5c.41 0 .75-.34.75-.75z"
+              />
+            </svg>
+            <span class="sr-only">Email</span>
+          </a>
+          <a
+            class="contact-action contact-action-call"
+            id="contact-call"
+            href="tel:+918167278091"
+            aria-label="Call"
+            title="Call"
+          >
+            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M6.62 10.79a15.5 15.5 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.03-.24c1.12.37 2.31.56 3.56.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.85 21 3 13.15 3 3.99a1 1 0 0 1 1-1H7.5a1 1 0 0 1 1 1c0 1.25.19 2.44.56 3.56a1 1 0 0 1-.24 1.03z"
+              />
+            </svg>
+            <span class="sr-only">Call</span>
+          </a>
+          <a
+            class="contact-action contact-action-whatsapp"
+            id="contact-whatsapp"
+            href="https://wa.me/918167278091"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp"
+            title="WhatsApp"
+          >
+            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M12.04 2C6.5 2 2 6.38 2 11.8c0 1.93.58 3.72 1.57 5.23L2.5 22l5.15-1.05a10.2 10.2 0 0 0 4.39.98c5.54 0 10.04-4.38 10.04-9.8S17.58 2 12.04 2m0 17.93a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.06.62.65-2.95-.2-.31A7.78 7.78 0 0 1 3.99 11.8c0-4.31 3.61-7.82 8.05-7.82s8.05 3.5 8.05 7.82-3.61 7.83-8.05 7.83m4.42-5.86c-.24-.12-1.42-.7-1.64-.78s-.38-.12-.54.12-.62.78-.76.94-.28.18-.52.06c-.24-.12-1.03-.37-1.95-1.17-.72-.63-1.2-1.4-1.34-1.64s-.01-.37.11-.49c.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4s.04-.31-.02-.43c-.06-.12-.54-1.28-.74-1.75-.2-.48-.4-.41-.54-.42h-.46c-.16 0-.43.06-.66.31s-.86.84-.86 2.05.88 2.37 1 2.53c.12.16 1.72 2.7 4.18 3.78.58.25 1.03.4 1.39.52.58.18 1.1.15 1.51.09.46-.07 1.42-.58 1.62-1.15s.2-1.05.14-1.15-.22-.16-.46-.28"
+              />
+            </svg>
+            <span class="sr-only">WhatsApp</span>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Modal for Chat Flow -->
+    <div class="modal-backdrop" id="chat-modal-backdrop" hidden>
+      <div class="modal">
+        <button class="modal-close" id="chat-modal-close">&times;</button>
+
+        <div id="step-collect-info">
+          <h2>Start Chat</h2>
+          <p>Enter your details to continue.</p>
+          <form id="user-info-form">
+            <label>
+              Name
+              <input type="text" id="name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" id="email" required />
+            </label>
+            <label>
+              Phone
+              <input type="tel" id="phone" maxlength="10" inputmode="numeric" required />
+            </label>
+            <button type="submit" class="btn-primary" id="request-otp-btn">Request OTP</button>
+          </form>
+          <p class="hint hint-highlight">
+            A one-time password will be sent to your email from aishikudemy.
+          </p>
+          <p id="info-error" class="error"></p>
+          <p id="otp-demo" class="hint"></p>
+        </div>
+
+        <div id="step-verify-otp" hidden>
+          <h2>Verify OTP</h2>
+          <p>Enter the OTP that was sent to you.</p>
+          <form id="otp-form">
+            <label>
+              OTP
+              <input type="text" id="otp" required />
+            </label>
+            <button type="submit" class="btn-primary" id="verify-otp-btn">Verify</button>
+          </form>
+          <p id="otp-error" class="error"></p>
+        </div>
+
+        <div id="step-chat" hidden>
+          <h2>Chat with my AI Assistant</h2>
+          <div id="chat-window" class="chat-window"></div>
+          <form id="chat-form" class="chat-form">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Ask about my experience, projects, skills..."
+              required
+            />
+            <button type="submit" class="btn-primary">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Booking Flow -->
+    <div class="modal-backdrop" id="booking-modal-backdrop" hidden>
+      <div class="modal">
+        <button class="modal-close" id="booking-modal-close">&times;</button>
+
+        <div id="booking-step-collect-info">
+          <h2>Book Session</h2>
+          <p>Enter your name and email to receive a verification code.</p>
+          <form id="booking-info-form">
+            <label>
+              Name
+              <input type="text" id="booking-name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" id="booking-email" required />
+            </label>
+            <button type="submit" class="btn-primary" id="booking-request-otp-btn">
+              Send Verification Code
+            </button>
+          </form>
+          <p id="booking-info-error" class="error"></p>
+          <p id="booking-otp-demo" class="hint"></p>
+        </div>
+
+        <div id="booking-step-verify-otp" hidden>
+          <h2>Verify Email</h2>
+          <p>Enter the verification code sent to your email.</p>
+          <form id="booking-otp-form">
+            <label>
+              OTP
+              <input type="text" id="booking-otp" required />
+            </label>
+            <button type="submit" class="btn-primary" id="booking-verify-otp-btn">
+              Verify & Open Calendar
+            </button>
+          </form>
+          <p id="booking-otp-error" class="error"></p>
+        </div>
+
+        <div id="booking-step-calendar" hidden>
+          <h2>Book Your Appointment</h2>
+          <p>Create a Google Meet event directly, then review your calendar.</p>
+          <form id="booking-event-form">
+            <label>
+              Preferred Date & Time
+              <input type="datetime-local" id="booking-start-at" required />
+            </label>
+            <label>
+              Duration (minutes)
+              <input type="number" id="booking-duration" min="15" max="180" step="15" value="30" required />
+            </label>
+            <label>
+              Notes (optional)
+              <input type="text" id="booking-notes" placeholder="Any context for the meeting" />
+            </label>
+            <button type="submit" class="btn-primary" id="booking-create-event-btn">
+              Create Google Meet Event
+            </button>
+          </form>
+          <p id="booking-event-error" class="error"></p>
+          <p id="booking-event-success" class="hint hint-highlight"></p>
+          <iframe
+            id="booking-calendar-frame"
+            class="calendar-frame"
+            title="Google Calendar Booking"
+            loading="lazy"
+            hidden
+          ></iframe>
+          <p class="hint">
+            Open calendar in a new tab:
+            <a id="booking-calendar-link" target="_blank" rel="noopener noreferrer">Open Google Calendar</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        console.log("[booking-inline] fallback script loaded");
+        const BACKEND_BASE_URL = "http://127.0.0.1:8000";
+        const SUPPORT_CONTACT_MSG = " If you face any issue, please contact +918167278091.";
+        const BUTTON_LOADER_MIN_MS = 500;
+
+        const btn = document.getElementById("book-session-cta");
+        const modal = document.getElementById("booking-modal-backdrop");
+        const closeBtn = document.getElementById("booking-modal-close");
+        const stepCollect = document.getElementById("booking-step-collect-info");
+        const stepVerify = document.getElementById("booking-step-verify-otp");
+        const stepCalendar = document.getElementById("booking-step-calendar");
+        const infoForm = document.getElementById("booking-info-form");
+        const otpForm = document.getElementById("booking-otp-form");
+        const eventForm = document.getElementById("booking-event-form");
+
+        const infoError = document.getElementById("booking-info-error");
+        const otpError = document.getElementById("booking-otp-error");
+        const otpDemo = document.getElementById("booking-otp-demo");
+        const eventError = document.getElementById("booking-event-error");
+        const eventSuccess = document.getElementById("booking-event-success");
+
+        const nameInput = document.getElementById("booking-name");
+        const emailInput = document.getElementById("booking-email");
+        const otpInput = document.getElementById("booking-otp");
+        const startAtInput = document.getElementById("booking-start-at");
+        const durationInput = document.getElementById("booking-duration");
+        const notesInput = document.getElementById("booking-notes");
+
+        const calendarFrame = document.getElementById("booking-calendar-frame");
+        const calendarLink = document.getElementById("booking-calendar-link");
+
+        const requestOtpBtn = document.getElementById("booking-request-otp-btn");
+        const verifyOtpBtn = document.getElementById("booking-verify-otp-btn");
+        const createEventBtn = document.getElementById("booking-create-event-btn");
+
+        let bookingName = "";
+        let bookingEmail = "";
+
+        function setButtonLoading(button, loadingText) {
+          if (!button) return;
+          if (!button.dataset.originalText) button.dataset.originalText = button.textContent;
+          button.disabled = true;
+          button.classList.add("loading");
+          button.textContent = loadingText;
+        }
+
+        function clearButtonLoading(button) {
+          if (!button) return;
+          button.disabled = false;
+          button.classList.remove("loading");
+          button.textContent = button.dataset.originalText || button.textContent;
+        }
+
+        function unlockCreateEventButton() {
+          if (!createEventBtn) return;
+          if (createEventBtn.dataset.locked === "true") {
+            createEventBtn.dataset.locked = "false";
+            createEventBtn.disabled = false;
+            createEventBtn.classList.remove("loading");
+            createEventBtn.textContent = createEventBtn.dataset.originalText || "Create Google Meet Event";
+            if (eventSuccess) eventSuccess.textContent = "";
+          }
+        }
+
+        function openBookingModalInline() {
+          if (!modal) return;
+          modal.removeAttribute("hidden");
+          modal.hidden = false;
+          modal.style.display = "flex";
+
+          if (stepCollect) stepCollect.hidden = false;
+          if (stepVerify) stepVerify.hidden = true;
+          if (stepCalendar) stepCalendar.hidden = true;
+
+          if (infoError) infoError.textContent = "";
+          if (otpError) otpError.textContent = "";
+          if (otpDemo) otpDemo.textContent = "";
+          if (eventError) eventError.textContent = "";
+          if (eventSuccess) eventSuccess.textContent = "";
+          if (otpInput) otpInput.value = "";
+
+          clearButtonLoading(requestOtpBtn);
+          clearButtonLoading(verifyOtpBtn);
+          if (createEventBtn) {
+            createEventBtn.dataset.locked = "false";
+            clearButtonLoading(createEventBtn);
+          }
+        }
+
+        function closeBookingModalInline() {
+          if (!modal) return;
+          modal.style.display = "none";
+          modal.setAttribute("hidden", "");
+          modal.hidden = true;
+        }
+
+        window.__openBookingModalFallback = openBookingModalInline;
+
+        if (btn) btn.addEventListener("click", openBookingModalInline, true);
+        if (closeBtn) closeBtn.addEventListener("click", closeBookingModalInline, true);
+
+        if (modal) {
+          modal.addEventListener(
+            "click",
+            function (e) {
+              if (e.target === modal) closeBookingModalInline();
+            },
+            true
+          );
+        }
+
+        [startAtInput, durationInput, notesInput, nameInput, emailInput].forEach(function (el) {
+          if (!el) return;
+          el.addEventListener("input", unlockCreateEventButton);
+          el.addEventListener("change", unlockCreateEventButton);
+        });
+
+        if (infoForm) {
+          infoForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            if (infoError) infoError.textContent = "";
+            const startedAt = Date.now();
+            setButtonLoading(requestOtpBtn, "Sending Code...");
+
+            const name = nameInput ? nameInput.value.trim() : "";
+            const email = emailInput ? emailInput.value.trim() : "";
+            if (!name || !email) {
+              if (infoError) infoError.textContent = "Please enter name and email." + SUPPORT_CONTACT_MSG;
+              clearButtonLoading(requestOtpBtn);
+              return;
+            }
+
+            try {
+              const res = await fetch(BACKEND_BASE_URL + "/booking/request-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: name, email: email }),
+              });
+
+              const data = await res.json();
+              if (!res.ok) {
+                if (infoError) infoError.textContent = (data.detail || "Failed to send OTP.") + SUPPORT_CONTACT_MSG;
+                return;
+              }
+
+              bookingName = name;
+              bookingEmail = email;
+
+              if (data.email_status !== "sent") {
+                if (infoError) {
+                  infoError.textContent =
+                    "OTP email could not be sent. Check SMTP settings in backend .env." + SUPPORT_CONTACT_MSG;
+                }
+                if (otpDemo && data.otp) otpDemo.textContent = "Demo OTP: " + data.otp;
+                return;
+              }
+
+              if (stepCollect) stepCollect.hidden = true;
+              if (stepVerify) stepVerify.hidden = false;
+              if (otpDemo) otpDemo.textContent = "";
+            } catch (err) {
+              if (infoError) infoError.textContent = "Network error. Please try again." + SUPPORT_CONTACT_MSG;
+            } finally {
+              const elapsed = Date.now() - startedAt;
+              if (elapsed < BUTTON_LOADER_MIN_MS) {
+                await new Promise((resolve) => setTimeout(resolve, BUTTON_LOADER_MIN_MS - elapsed));
+              }
+              clearButtonLoading(requestOtpBtn);
+            }
+          });
+        }
+
+        if (otpForm) {
+          otpForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            if (otpError) otpError.textContent = "";
+            const startedAt = Date.now();
+            setButtonLoading(verifyOtpBtn, "Verifying...");
+
+            const otp = otpInput ? otpInput.value.trim() : "";
+            if (!otp) {
+              if (otpError) otpError.textContent = "Please enter OTP." + SUPPORT_CONTACT_MSG;
+              clearButtonLoading(verifyOtpBtn);
+              return;
+            }
+
+            try {
+              const res = await fetch(BACKEND_BASE_URL + "/booking/verify-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  name: bookingName,
+                  email: bookingEmail,
+                  otp: otp,
+                }),
+              });
+
+              const data = await res.json();
+              if (!res.ok) {
+                if (otpError) otpError.textContent = (data.detail || "OTP verification failed.") + SUPPORT_CONTACT_MSG;
+                return;
+              }
+
+              const calendarUrl = (data && data.calendar_url) || "https://calendar.google.com/";
+              if (calendarFrame) {
+                calendarFrame.src = "";
+                calendarFrame.hidden = true;
+              }
+              if (calendarLink) {
+                calendarLink.href = calendarUrl;
+                calendarLink.textContent = calendarUrl;
+              }
+
+              if (stepVerify) stepVerify.hidden = true;
+              if (stepCalendar) stepCalendar.hidden = false;
+            } catch (err) {
+              if (otpError) otpError.textContent = "Network error. Please try again." + SUPPORT_CONTACT_MSG;
+            } finally {
+              const elapsed = Date.now() - startedAt;
+              if (elapsed < BUTTON_LOADER_MIN_MS) {
+                await new Promise((resolve) => setTimeout(resolve, BUTTON_LOADER_MIN_MS - elapsed));
+              }
+              clearButtonLoading(verifyOtpBtn);
+            }
+          });
+        }
+
+        if (eventForm) {
+          eventForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            if (eventError) eventError.textContent = "";
+            if (eventSuccess) eventSuccess.textContent = "";
+            const startedAt = Date.now();
+            setButtonLoading(createEventBtn, "Booking...");
+
+            const localDateTime = startAtInput ? startAtInput.value : "";
+            const duration = durationInput ? Number(durationInput.value) : 30;
+            const notes = notesInput ? notesInput.value.trim() : "";
+
+            if (!localDateTime) {
+              if (eventError) eventError.textContent = "Please select date and time." + SUPPORT_CONTACT_MSG;
+              clearButtonLoading(createEventBtn);
+              return;
+            }
+            if (!duration || duration < 15 || duration > 180) {
+              if (eventError) eventError.textContent = "Duration must be between 15 and 180 minutes." + SUPPORT_CONTACT_MSG;
+              clearButtonLoading(createEventBtn);
+              return;
+            }
+
+            try {
+              const res = await fetch(BACKEND_BASE_URL + "/booking/create-meet-event", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  name: bookingName,
+                  email: bookingEmail,
+                  start_at: new Date(localDateTime).toISOString(),
+                  duration_minutes: duration,
+                  notes: notes,
+                }),
+              });
+
+              const data = await res.json();
+              if (!res.ok) {
+                if (eventError) eventError.textContent = (data.detail || "Failed to create appointment.") + SUPPORT_CONTACT_MSG;
+                return;
+              }
+
+              const meetLink = data.meet_link || "";
+              const eventLink = data.event_link || "";
+              if (eventSuccess) {
+                eventSuccess.textContent = meetLink
+                  ? "Appointment booked. Meet link: " + meetLink
+                  : "Appointment booked successfully.";
+              }
+              if (eventLink && calendarLink) {
+                calendarLink.href = eventLink;
+                calendarLink.textContent = eventLink;
+              }
+
+              if (createEventBtn) {
+                createEventBtn.dataset.locked = "true";
+                createEventBtn.disabled = true;
+                createEventBtn.classList.remove("loading");
+                createEventBtn.textContent = "Booked";
+              }
+            } catch (err) {
+              if (eventError) eventError.textContent = "Network error. Please try again." + SUPPORT_CONTACT_MSG;
+            } finally {
+              const elapsed = Date.now() - startedAt;
+              if (elapsed < BUTTON_LOADER_MIN_MS) {
+                await new Promise((resolve) => setTimeout(resolve, BUTTON_LOADER_MIN_MS - elapsed));
+              }
+              if (!createEventBtn || createEventBtn.dataset.locked !== "true") {
+                clearButtonLoading(createEventBtn);
+              }
+            }
+          });
+        }
+      })();
+    </script>
+    <script src="app.js"></script>
+  </body>
+  </html>

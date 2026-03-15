@@ -1,0 +1,75 @@
+# This workflow validates the app before code is merged.
+name: PR Check
+
+# This workflow runs for pull requests targeting develop or main.
+on:
+  # Run the checks whenever a pull request is opened or updated.
+  pull_request:
+    # Restrict the workflow to the main collaboration branches.
+    branches:
+      # Staging branch.
+      - develop
+      # Production branch.
+      - main
+
+# Define the jobs that make up this workflow.
+jobs:
+  # This job verifies that both backend and frontend still build correctly.
+  build-and-verify:
+    # Human-friendly job title shown in GitHub Actions.
+    name: Build And Verify
+    # Use the current Ubuntu runner provided by GitHub.
+    runs-on: ubuntu-latest
+
+    # List the ordered steps in this job.
+    steps:
+      # Pull the repository code into the runner.
+      - name: Checkout repository
+        # Use the official checkout action.
+        uses: actions/checkout@v4
+
+      # Install Python so backend checks can run.
+      - name: Set up Python
+        # Use the official Python setup action.
+        uses: actions/setup-python@v5
+        # Configure the requested Python version.
+        with:
+          # Match the backend Docker image Python version.
+          python-version: "3.11"
+
+      # Install Node.js so the Next.js frontend can build.
+      - name: Set up Node.js
+        # Use the official Node setup action.
+        uses: actions/setup-node@v4
+        # Configure the requested Node version.
+        with:
+          # Match the frontend Docker image Node version.
+          node-version: "20"
+          # Cache npm dependencies to speed up repeat runs.
+          cache: "npm"
+          # Tell the cache where the lockfile lives.
+          cache-dependency-path: frontend/package-lock.json
+
+      # Install backend Python dependencies.
+      - name: Install backend dependencies
+        # Run shell commands on the runner.
+        run: pip install -r backend/requirements.txt
+
+      # Do a quick syntax check over the backend.
+      - name: Compile backend Python files
+        # Use Python's built-in compile pass as a lightweight check.
+        run: python -m compileall backend
+
+      # Install frontend JavaScript dependencies.
+      - name: Install frontend dependencies
+        # Run npm install using the lockfile for reproducible builds.
+        run: npm ci
+        # Run inside the frontend folder.
+        working-directory: frontend
+
+      # Build the Next.js frontend exactly like production would.
+      - name: Build frontend
+        # Run the Next.js production build.
+        run: npm run build
+        # Run inside the frontend folder.
+        working-directory: frontend

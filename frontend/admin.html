@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Login - Resume Upload</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero-content">
+        <h1>Admin Access</h1>
+        <p>Login to upload the latest resume PDF for AI chat responses.</p>
+        <a href="index.html" class="btn-primary admin-cta">Back to Website</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2 id="admin-auth-title">Admin Login</h2>
+        <form id="admin-login-form">
+          <label id="admin-email-field">
+            Email
+            <input type="email" id="admin-email" required />
+          </label>
+          <label id="admin-password-field">
+            Password
+            <div class="password-input-wrap">
+              <input type="password" id="admin-password" required />
+              <button type="button" id="admin-show-password-btn" class="password-toggle-btn">
+                Show
+              </button>
+            </div>
+          </label>
+          <button type="submit" class="btn-primary" id="admin-login-btn">Login</button>
+        </form>
+        <p id="admin-login-error" class="error"></p>
+        <p id="admin-login-success" class="hint hint-highlight"></p>
+      </section>
+
+      <section class="section" id="resume-upload-section" hidden>
+        <h2>Upload Resume</h2>
+        <form id="resume-upload-form">
+          <label for="resume-file">Resume PDF</label>
+          <input type="file" id="resume-file" accept="application/pdf" required hidden />
+          <div class="file-picker-row">
+            <button type="button" class="btn-primary file-pick-btn" id="resume-file-pick-btn">
+              Choose PDF
+            </button>
+            <span id="resume-file-name" class="file-name-label">No file selected</span>
+            <button type="button" id="resume-file-clear-btn" class="file-clear-btn" title="Clear/Remove">
+              ×
+            </button>
+          </div>
+          <button type="submit" class="btn-primary" id="resume-upload-btn">Upload Resume</button>
+        </form>
+        <p id="resume-upload-error" class="error"></p>
+        <p id="resume-upload-success" class="hint hint-highlight"></p>
+      </section>
+
+      <section class="section" id="content-editor-section" hidden>
+        <h2>Website Content Editor</h2>
+
+        <form id="about-form">
+          <label>
+            About Me
+            <textarea id="about-input" rows="5" required></textarea>
+          </label>
+          <button type="submit" class="btn-primary" id="about-save-btn">Save About</button>
+        </form>
+
+        <form id="contact-form">
+          <label>
+            Contact Heading
+            <input type="text" id="contact-heading-input" required />
+          </label>
+          <label>
+            Contact Message
+            <textarea id="contact-message-input" rows="3" required></textarea>
+          </label>
+          <button type="submit" class="btn-primary" id="contact-save-btn">Save Contact</button>
+        </form>
+
+        <form id="demo-video-form">
+          <label>
+            Website Demo Video YouTube Link
+            <input
+              type="url"
+              id="demo-video-input"
+              placeholder="https://www.youtube.com/watch?v=..."
+              required
+            />
+          </label>
+          <button type="submit" class="btn-primary" id="demo-video-save-btn">Save Demo Video</button>
+        </form>
+
+        <form id="voice-call-form">
+          <label class="checkbox-row">
+            <input type="checkbox" id="voice-call-enabled-input" />
+            Enable auto AI call after OTP verification
+          </label>
+          <label>
+            Vobiz AI Number
+            <input
+              type="text"
+              id="voice-call-from-number-input"
+              placeholder="+911171366938"
+            />
+          </label>
+          <p class="hint">
+            The verified visitor phone number will be called automatically after OTP success.
+            Keep your public backend webhook URL configured in backend `.env`.
+          </p>
+          <button type="submit" class="btn-primary" id="voice-call-save-btn">Save Voice Call Settings</button>
+        </form>
+
+        <form id="skills-form">
+          <label>
+            Skills (one per line, max 10)
+            <textarea id="skills-input" rows="8" placeholder="SQL&#10;Python&#10;Power BI"></textarea>
+          </label>
+          <button type="submit" class="btn-primary" id="skills-save-btn">Save Skills</button>
+        </form>
+
+        <div id="projects-editor-wrap"></div>
+        <button type="button" class="btn-primary" id="add-project-btn">Add Project</button>
+
+        <p id="content-editor-error" class="error"></p>
+        <p id="content-editor-success" class="hint hint-highlight"></p>
+      </section>
+    </main>
+
+    <script src="admin.js?v=20260308"></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: sqlite:///./backend/data/app.db
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      FRONTEND_ORIGIN: http://localhost:3000
+      CORS_ALLOW_ORIGINS: http://localhost:3000,http://127.0.0.1:3000,http://127.0.0.1:5500
+    depends_on:
+      - redis
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/data:/app/backend/data
+      - ./backend/credentials:/app/backend/credentials:ro
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    command: celery -A celery_app.celery_app worker --loglevel=info --concurrency=1
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: sqlite:///./backend/data/app.db
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/1
+      FRONTEND_ORIGIN: http://localhost:3000
+      CORS_ALLOW_ORIGINS: http://localhost:3000,http://127.0.0.1:3000,http://127.0.0.1:5500
+    depends_on:
+      - redis
+      - backend
+    volumes:
+      - ./backend/data:/app/backend/data
+      - ./backend/credentials:/app/backend/credentials:ro
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
