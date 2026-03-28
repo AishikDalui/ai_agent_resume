@@ -1,3 +1,6 @@
+const internalBackendUrl =
+  process.env.INTERNAL_BACKEND_URL || "http://backend:8000";
+
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   output: "standalone",
@@ -5,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://127.0.0.1:8000/:path*",
+        destination: `${internalBackendUrl}/:path*`,
       },
     ];
   },

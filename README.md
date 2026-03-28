@@ -124,6 +124,7 @@ Notes:
 - SQLite data is persisted through the mounted `backend/data/` folder.
 - The worker uses `--concurrency=1`, which fits a small VPS well.
 - Keep your production `.env` values updated before deployment, especially `PUBLIC_BACKEND_URL`.
+- The frontend proxies `/api/*` to the backend container through `INTERNAL_BACKEND_URL`, which defaults to `http://backend:8000` in Docker Compose.
 
 ### Automatic Deploy on Push to `main`
 
