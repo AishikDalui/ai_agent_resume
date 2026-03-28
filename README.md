@@ -125,6 +125,36 @@ Notes:
 - The worker uses `--concurrency=1`, which fits a small VPS well.
 - Keep your production `.env` values updated before deployment, especially `PUBLIC_BACKEND_URL`.
 
+### Automatic Deploy on Push to `main`
+
+This repository includes a GitHub Actions workflow at `.github/workflows/deploy.yml`
+that redeploys the app to your Hostinger VPS whenever you push to the `main` branch.
+
+The workflow connects to the VPS over SSH, updates the checked-out repository, and
+restarts the production containers with:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build --remove-orphans
+```
+
+Add these GitHub repository secrets before using it:
+
+- `VPS_HOST`: Public IP or hostname of your VPS.
+- `VPS_PORT`: SSH port, usually `22`.
+- `VPS_USERNAME`: SSH user on the VPS.
+- `VPS_SSH_KEY`: Private SSH key for that user.
+- `VPS_APP_DIR`: Absolute path of this project on the VPS, for example `/root/ai_agent_resume`.
+
+Server prerequisites:
+
+- The VPS must already have this repository cloned at `VPS_APP_DIR`.
+- Docker and Docker Compose must already be installed on the VPS.
+- Your production `.env` file must already exist on the VPS inside the project root.
+- The checked-out branch on the VPS should be `main`.
+
+If deployment does not run, check the GitHub Actions tab and confirm the repository
+secrets are set correctly.
+
 ### Notes
 
 - OTP sending is implemented as a **stub** (it logs the OTP on the backend). To go to production, integrate a real email or SMS provider.

@@ -1,170 +1,34 @@
-# This workflow deploys develop to staging and main to production.
-name: Deploy To VPS
+name: Deploy to Hostinger VPS
 
-# This workflow runs when code is pushed to the deployment branches.
 on:
-  # Start on direct pushes to the selected branches.
   push:
-    # Only deploy from the staging and production branches.
     branches:
-      # Staging branch.
-      - develop
-      # Production branch.
       - main
+  workflow_dispatch:
 
-# Prevent overlapping deploys to the same branch.
 concurrency:
-  # Use the workflow name plus branch name as the concurrency key.
-  group: deploy-${{ github.ref }}
-  # Cancel an older in-progress deploy if a new one starts.
+  group: production-deploy
   cancel-in-progress: true
 
-# Define the jobs that make up this workflow.
 jobs:
-  # This job first validates the code before attempting deployment.
-  verify:
-    # Human-friendly job title shown in GitHub Actions.
-    name: Verify Before Deploy
-    # Use the current Ubuntu runner provided by GitHub.
+  deploy:
     runs-on: ubuntu-latest
 
-    # List the ordered steps in this job.
     steps:
-      # Pull the repository code into the runner.
-      - name: Checkout repository
-        # Use the official checkout action.
-        uses: actions/checkout@v4
-
-      # Install Python so backend checks can run.
-      - name: Set up Python
-        # Use the official Python setup action.
-        uses: actions/setup-python@v5
-        # Configure the requested Python version.
-        with:
-          # Match the backend Docker image Python version.
-          python-version: "3.11"
-
-      # Install Node.js so the frontend can build.
-      - name: Set up Node.js
-        # Use the official Node setup action.
-        uses: actions/setup-node@v4
-        # Configure the requested Node version.
-        with:
-          # Match the frontend Docker image Node version.
-          node-version: "20"
-          # Cache npm dependencies to speed up repeat runs.
-          cache: "npm"
-          # Tell the cache where the lockfile lives.
-          cache-dependency-path: frontend/package-lock.json
-
-      # Install backend dependencies.
-      - name: Install backend dependencies
-        # Run pip against the checked-in requirements file.
-        run: pip install -r backend/requirements.txt
-
-      # Check backend Python syntax before deployment.
-      - name: Compile backend Python files
-        # Use Python's built-in compile pass as a lightweight gate.
-        run: python -m compileall backend
-
-      # Install frontend dependencies.
-      - name: Install frontend dependencies
-        # Use the existing lockfile for reproducible installs.
-        run: npm ci
-        # Run inside the frontend folder.
-        working-directory: frontend
-
-      # Build the frontend exactly like production would.
-      - name: Build frontend
-        # Run the Next.js production build.
-        run: npm run build
-        # Run inside the frontend folder.
-        working-directory: frontend
-
-  # This job deploys to the staging server path when develop is updated.
-  deploy-staging:
-    # Human-friendly job title shown in GitHub Actions.
-    name: Deploy Staging
-    # Wait for verification to pass first.
-    needs: verify
-    # Only run this job for the develop branch.
-    if: github.ref == 'refs/heads/develop'
-    # Use the current Ubuntu runner provided by GitHub.
-    runs-on: ubuntu-latest
-    # Attach this job to the staging environment in GitHub.
-    environment: staging
-
-    # List the ordered steps in this job.
-    steps:
-      # Connect to the VPS and deploy the staging copy of the app.
-      - name: Deploy over SSH to staging
-        # Use a popular SSH action so we do not manage raw SSH ourselves.
+      - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.0.3
-        # Pass connection details and commands into the action.
         with:
-          # VPS hostname or IP stored in GitHub secrets.
-          host: ${{ secrets.STAGING_HOST }}
-          # SSH port stored in GitHub secrets.
-          port: ${{ secrets.STAGING_PORT }}
-          # SSH user stored in GitHub secrets.
-          username: ${{ secrets.STAGING_USER }}
-          # SSH private key stored in GitHub secrets.
-          key: ${{ secrets.STAGING_SSH_KEY }}
-          # Stop the deploy immediately if any command fails.
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
           script_stop: true
-          # Run the deployment commands on the server.
           script: |
-            # Move into the staging application folder on the VPS.
-            cd ${{ secrets.STAGING_APP_PATH }}
-            # Make sure we are on the staging branch.
-            git checkout develop
-            # Download the latest code from GitHub.
-            git pull origin develop
-            # Rebuild and restart the containers with the production compose file.
-            docker compose -f docker-compose.prod.yml up -d --build
-            # Remove old unused Docker data to save disk space.
-            docker system prune -af
-
-  # This job deploys to the production server path when main is updated.
-  deploy-production:
-    # Human-friendly job title shown in GitHub Actions.
-    name: Deploy Production
-    # Wait for verification to pass first.
-    needs: verify
-    # Only run this job for the main branch.
-    if: github.ref == 'refs/heads/main'
-    # Use the current Ubuntu runner provided by GitHub.
-    runs-on: ubuntu-latest
-    # Attach this job to the production environment in GitHub.
-    environment: production
-
-    # List the ordered steps in this job.
-    steps:
-      # Connect to the VPS and deploy the production copy of the app.
-      - name: Deploy over SSH to production
-        # Use a popular SSH action so we do not manage raw SSH ourselves.
-        uses: appleboy/ssh-action@v1.0.3
-        # Pass connection details and commands into the action.
-        with:
-          # VPS hostname or IP stored in GitHub secrets.
-          host: ${{ secrets.PRODUCTION_HOST }}
-          # SSH port stored in GitHub secrets.
-          port: ${{ secrets.PRODUCTION_PORT }}
-          # SSH user stored in GitHub secrets.
-          username: ${{ secrets.PRODUCTION_USER }}
-          # SSH private key stored in GitHub secrets.
-          key: ${{ secrets.PRODUCTION_SSH_KEY }}
-          # Stop the deploy immediately if any command fails.
-          script_stop: true
-          # Run the deployment commands on the server.
-          script: |
-            # Move into the production application folder on the VPS.
-            cd ${{ secrets.PRODUCTION_APP_PATH }}
-            # Make sure we are on the production branch.
+            set -e
+            cd "${{ secrets.VPS_APP_DIR }}"
+            git fetch origin main
             git checkout main
-            # Download the latest code from GitHub.
-            git pull origin main
-            # Rebuild and restart the containers with the production compose file.
-            docker compose -f docker-compose.prod.yml up -d --build
-            # Remove old unused Docker data to save disk space.
-            docker system prune -af
+            git pull --ff-only origin main
+            docker compose -f docker-compose.prod.yml up -d --build --remove-orphans
+            docker image prune -f
+            docker compose -f docker-compose.prod.yml ps
