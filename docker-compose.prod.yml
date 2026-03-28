@@ -33,6 +33,7 @@ services:
     ports:
       - "127.0.0.1:8000:8000"
     volumes:
+      - ./backend/data:/app/backend/data
       - ./backend/credentials:/app/backend/credentials:ro
 
   worker:
@@ -52,6 +53,7 @@ services:
       - postgres
       - redis
     volumes:
+      - ./backend/data:/app/backend/data
       - ./backend/credentials:/app/backend/credentials:ro
 
   frontend:
